@@ -26,7 +26,7 @@ public class AmazonSamsungTest {
 
     @Test
     @Order(1)
-    void openAmazonIn() {
+    void openAmazonInTest() {
         driver.manage().window().maximize();
         driver.get("https://www.amazon.in/");
     }
