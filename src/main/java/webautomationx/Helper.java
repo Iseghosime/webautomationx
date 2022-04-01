@@ -39,9 +39,14 @@ public class Helper {
         return driver.findElements(By.className(className));
     }
 
-    public static void waitForElement(WebDriver driver, int timeoutInSeconds, By by) {
+    public static void waitTillElementVisible(WebDriver driver, int timeoutInSeconds, By by) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
         wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+    }
+
+    public static void waitTillElementClickable(WebDriver driver, int timeoutInSeconds, By by) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
+        wait.until(ExpectedConditions.elementToBeClickable(by));
     }
 
 }

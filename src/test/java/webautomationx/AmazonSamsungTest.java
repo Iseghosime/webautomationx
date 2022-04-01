@@ -3,6 +3,7 @@ package webautomationx;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -46,20 +47,31 @@ public class AmazonSamsungTest {
     @Test
     @Order(4)
     void clickTelevision() {
-        Helper.waitForElement(driver, 5, By.xpath("//ul//li//a[contains(.,\"Television\")]"));
+        Helper.waitTillElementVisible(driver, 5, By.xpath("//ul//li//a[contains(.,\"Television\")]"));
         Helper.getElementByXPath(driver, "//ul//li//a[contains(.,\"Television\")]").click();
     }
 
     @Test
     @Order(5)
     void filterResultBySamsung() {
-        WebElement brandElement = Helper.getElementByXPath(driver, "//ul//li//span[contains(.,\"Samsung\")]");
-        Helper.getElementById(brandElement, "");
+        try {
+            Thread.sleep(2*1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Helper.waitTillElementVisible(driver, 10, By.xpath("//*[@id=\"s-refinements\"]/div[17]/ul/li[4]/span/a/div"));
+        WebElement samsungCheckbox = Helper.getElementByXPath(driver, "//*[@id=\"s-refinements\"]/div[17]/ul/li[4]/span/a/div");
+        samsungCheckbox.click();
     }
 
     @Test
     @Order(6)
     void sortResultHighToLow() {
+        Helper.waitTillElementClickable(driver, 60, By.id("s-result-sort-select"));
+        ((JavascriptExecutor)driver).executeScript("document.getElementById('s-result-sort-select').click();");
+
+        Helper.waitTillElementVisible(driver, 60, By.xpath("//ul//li//a[contains(.,\"Price: Low to High\")]"));
+        Helper.getElementByXPath(driver, "//ul//li//a[contains(.,\"Price: Low to High\")]").click();
     }
 
     @Test
