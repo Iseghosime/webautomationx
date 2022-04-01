@@ -49,4 +49,12 @@ public class Helper {
         wait.until(ExpectedConditions.elementToBeClickable(by));
     }
 
+    public static void waitForXSecond(int waitTimeout) {
+        try {
+            Thread.sleep(waitTimeout * 1000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
